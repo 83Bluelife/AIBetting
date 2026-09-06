@@ -1,0 +1,29 @@
+name: Autonomous Football Betting Analyzer
+
+on:
+  schedule:
+    - cron: '0 8 * * *' # Runs automatically every day at 8:00 AM UTC
+  workflow_dispatch: # Allows you to manually trigger it from your phone via the GitHub app if desired
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests anthropic
+
+      - name: Run Analysis Script
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python analyze.py
