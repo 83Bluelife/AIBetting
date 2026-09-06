@@ -26,9 +26,9 @@ def analyze_matches_with_ai(match_data_string):
     Calculate the implied probabilities, filter for matches with actual analytical interest, and provide a cynical, sharp critique of where the bookies might be wrong or where traps lie. Keep it concise.
     """
     
-    # Using the free, fast Gemini Flash model
+    # Updated to use the active free-tier model name
     response = client.models.generate_content(
-        model="gemini-2.5-flash",
+        model="gemini-2.0-flash",
         contents=prompt,
     )
     return response.text
